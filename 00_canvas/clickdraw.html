@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    #slate{border:1px solid black}
+</style>
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <h1> clickdraw </h1>
+  <div>
+    <canvas height="600" width ="600" id="slate">
+      stuff
+    </canvas>
+    <br>
+    <button  onclick="clear()"> clear </button>
+    <button id="toggle"> Draw Button vs Draw Dot </button>
+   <!--<script src="clickdraw.js"></script>-->
+
+
+   <script>
+   function clear() {
+     ctx.clearRect(0,0,c.width,c.height);
+   }
+   </script>
+
+
+  </div>
+</html>
