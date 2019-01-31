@@ -6,22 +6,12 @@
 
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <h1> clickdraw </h1>
+  <h2>     current mode: <a id="mode">rectangle</a> </h2>
   <div>
-    <canvas height="600" width ="600" id="slate">
-      stuff
-    </canvas>
-    <br>
-    <button  onclick="clear()"> clear </button>
-    <button id="toggle"> Draw Button vs Draw Dot </button>
-   <!--<script src="clickdraw.js"></script>-->
+    <canvas height="600" width="600" id="slate"></canvas><br>
+    <button id="clear">clear</button><br>
+    <button id="toggle">box or dot </button><br>
 
-
-   <script>
-   function clear() {
-     ctx.clearRect(0,0,c.width,c.height);
-   }
-   </script>
-
-
+    <script src="clickdraw.js"></script>
   </div>
 </html>
