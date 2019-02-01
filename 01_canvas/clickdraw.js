@@ -2,8 +2,8 @@ var c = document.getElementById("slate");
 var ctx = c.getContext("2d");
 var clear = document.getElementById("clear");
 var toggle = document.getElementById("toggle");
-//state variable (boolean)
-var isRect = true;
+//state variable
+var state = "rectangle";
 
 //clear function, uses a clearRect function that takes the width and height of canvas as parameters
 clear.addEventListener('click', function(e){
@@ -16,12 +16,17 @@ clear.addEventListener('click', function(e){
 
 //Checks to see what the current mode is-- if it's rectange, switch to dot, if it's dot, switch to rectange
 toggle.addEventListener('click', function(e) {
-    isRect = !isRect;
-    if(isRect) {
+    if(state=="rectangle"){
+	state="dot";
+    }
+    else{
+	state="rectangle";
+    }
+    if (state=="rectangle"){
 	this.innerHTML = "rectangle";
-  }
-  else {
-    this.innerHTML = "dot";
+    }
+    else {
+	this.innerHTML = "dot";
   }
 });
 
