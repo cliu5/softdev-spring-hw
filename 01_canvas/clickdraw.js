@@ -2,9 +2,12 @@ var c = document.getElementById("slate");
 var ctx = c.getContext("2d");
 var clear = document.getElementById("clear");
 var toggle = document.getElementById("toggle");
+//state variable (boolean)
+var isRect = true;
 
 //clear function, uses a clearRect function that takes the width and height of canvas as parameters
 clear.addEventListener('click', function(e){
+    //prevents the default action of the event from happening-- ie when you click a link it usually redirects you to a new page-- preventdefault() stops that
     e.preventDefault()
     ctx.clearRect(0, 0, c.width, c.height)
 }
@@ -12,7 +15,6 @@ clear.addEventListener('click', function(e){
 
 
 //Checks to see what the current mode is-- if it's rectange, switch to dot, if it's dot, switch to rectange
-var isRect = true;
 toggle.addEventListener('click', function(e) {
     isRect = !isRect;
     if(isRect) {
