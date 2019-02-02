@@ -1,0 +1,47 @@
+var c = document.getElementById("playground");
+var ctx = c.getContext("2d");
+var clear = document.getElementById("clear");
+var count=1;
+var clicks=0;
+var xcorF;
+var ycorF;
+
+//clear function, uses a clearRect function that takes the width and height of canvas as parameters
+clear.addEventListener('click', function(e){
+    //prevents the default action of the event from happening-- ie when you click a link it usually redirects you to a new page-- preventdefault() stops that
+    e.preventDefault()
+    ctx.clearRect(0, 0, c.width, c.height)
+}
+)
+c.addEventListener('click', function(e){
+    //getting coords after offset
+    var xcor = e.offsetX;
+    var ycor = e.offsetY;
+	  ctx.fillStyle = "pink";
+    ctx.beginPath();
+    ctx.ellipse(xcor, ycor, 20, 20, Math.PI / 4, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.fill();
+    count++;
+    ctx.closePath();
+})
+
+c.addEventListener('click',draw);
+function draw(e){
+  var xcorI = e.offsetX;
+  var ycorI = e.offsetY;
+  c.addEventListener('click',function(){
+    clicks++;
+    if(count>0){
+      if(clicks>2){
+        xcorF=e.offsetX;
+        ycorF=e.offsetY;
+        ctx.beginPath();
+        ctx.moveTo(xcorI, ycorI);
+        ctx.lineTo(xcorF, ycorF);
+        ctx.stroke();
+}
+}
+}
+)
+}
