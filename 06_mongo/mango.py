@@ -23,8 +23,7 @@ def display_restaurants(collection):
         print(i)
 
 
-display_restaurants(get_borough("Brooklyn"))
-display_restaurants(get_zipcode("11364"))
-display_restaurants(get_zip_grade("11364", "B"))
-display_restaurants(get_zip_score("11364", 5))
-display_restaurants(get_zip_grade_score("11364", "C", 20))
+display_restaurants(get_borough("Manhattan"))
+display_restaurants(get_zipcode("10282"))
+display_restaurants(get_zip_grade("10282", "B"))
+display_restaurants(get_zip_score("10282", 5))
