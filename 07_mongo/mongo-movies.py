@@ -39,11 +39,13 @@ def year_and_genre(year,genre):
 
 def display(collection):
     for i in collection:
-        print i['title']
+        print(i['title'])
 
 #Testing
 '''
+print('----------TESTING YEAR------------')
 display(year_movie(2015))
+print('----------TESTING GENRE----------')
 display(genre_movie("Comedy"))
 '''
 
