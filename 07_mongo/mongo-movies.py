@@ -8,25 +8,28 @@ https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies.json
 
 American movies scraped from Wikipedia (contains: year, genre, name, cast, director)
 
-Import: open the movies.json file, loads data within the json file, inserted into our collection
+mongoimport --db Liusers --collection movies --drop --jsonArray --file DIRECTORY_NAME/movies.json
 '''
 
 import pymongo
-server_address="68.183.139.31"
+import json
+server_address="134.209.67.113"
 connection=pymongo.MongoClient(server_address)
 db=connection.Liusers
 collection=db.movies
 
+'''
 filename = "movies.json"
 movielist = open(filename, "r")
 movies = json.load(movielist)
 collection.insert_many(movies)
+'''
 
 def title_movie(title):
     return collection.find({'title':title})
 
 def genre_movie(genre):
-    return collection.find({'genre':genre})
+    return collection.find({'genres':genre})
 
 def year_movie(year):
     return collection.find({'year':year})
@@ -40,13 +43,11 @@ def year_and_genre(year,genre):
 def display(collection):
     for i in collection:
         print(i['title'])
+        #print(i)
 
 #Testing
-'''
-print('----------TESTING YEAR------------')
+print('--------------------------------TESTING YEAR---------------------')
 display(year_movie(2015))
-print('----------TESTING GENRE----------')
+print('--------------------------------TESTING GENRE---------------------')
 display(genre_movie("Comedy"))
-'''
-
 
