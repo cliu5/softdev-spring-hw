@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <title>k 08</title>
+  </head>
+
+  <body>
+    {% set msgs = get_flashed_messages() %}
+    {% for each in msgs %}
+      <h3{{ each }}</h3>
+    {% endfor %}
+
+    <h1>Mongo Movies</h1>
+
+    <form action = "/home" method="POST">
+ IP Address <br> <input type = "text" name = "ipaddress">
+      <br>
+      Category <br>
+      <input type="radio" name="search_option" value="title"> Title<br>
+      <input type="radio" name="search_option" value="genre"> Genre<br>
+      <input type="radio" name="search_option" value="year"> Year<br>
+ <br>
+ What are you searching for?
+   <br> <input type = "text" name = "search">
+      <br>
+      <input type = "submit" name = "Submit">
+    </form>
+
+    {% for res in _ress %}
+      <h5> Name: {{res["name"]}}</h5>
+      <h5> Types:{% for ty in res["type"] %}{{ty}}{% endfor %}</h5>
+      <h5> Weight: {{res["weight"]}} </h5>
+      <h5> Height: {{res["height"]}} </h5>
+      <img src="{{res['img']}}" alt='{{res["name"]}}' height="100" width="100">
+      <hr>
+    {% endfor %}
+
+  </body>
+
+</html>
