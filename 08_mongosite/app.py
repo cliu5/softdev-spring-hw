@@ -1,35 +1,64 @@
-# Claire Liu
-# SoftDev1 pd06
-# K#00 
-# yyyy-mm-dd
+#BoatInspired -- Thomas Lee, Claire Liu, Josh Weiner
+#SoftDev2 pd6
+#K08 -- Ay Mon, Go Git It From Yer Flask
+#2019-03-08
 
-from flask import Flask, render_template, request,session, url_for, redirect, flash
+from flask import Flask,render_template,request,session
+#import mongo
 import pymongo
 import json
 import os
 
-server_address="134.209.67.113"
-connection=pymongo.MongoClient(server_address)
-db=connection.CCUP
-collection=db.movies
+app = Flask(__name__)
+app.secret_key = os.urandom(32)
+collection=None
+db=None
+ip = "157.230.50.34"
 
 @app.route("/")
-@app.route("/home",methods=["POST"])
-def mongodb():
-    if request.form.get('ipaddress')!= None:
+def home():
+    return render_template("home.html")
+
+@app.route("/get_ip")
+def get_ip():
+    if request.args.get("ip") != None:
         try:
-            connection=pymongo.MongoClient(request.form.get("ipaddress"))
-            connection.server_info()
-            db=connection.CCUP
-            collection=db.movies
+            ip = request.args.get("ip")
+            connection = pymongo.MongoClient(ip)
+            connection.drop_database("database")
+            db = connection["BoatBoatInspire"]
+            collection = db["movies"]
+            file = open('movies.json')
+            data = json.load(F)
+            collection.insert_many(data)
         except:
-            server_address="134.209.67.113"
-            connection=pymongo.MongoClient(server_address)
-            db=connection.CCUP
-            collection=db.movies
-    
+            ip = "157.230.50.34"
+            connection = pymongo.MongoClient(ip)
+            connection.drop_database("database")
+            db = connection["BoatBoatInspire"]
+            collection = db["movies"]
+            file = open('movies.json')
+            data = json.load(F)
+            collection.insert_many(data)
+    return render_template("search.html",ip=ip)
 
-if __name__ == "__main__":
-    app.debug = True
-    app.run()
+def title_movie(title):
+    return collection.find({'title':title})
 
+def genre_movie(genre):
+    return collection.find({'genres':genre})
+
+def year_movie(year):
+    return collection.find({'year':year})
+
+@app.route("/query")
+def query():
+    results=[]
+    q = request.args.get("search")
+    results.append(title_movie(q))
+    results.append(genre_movie(q))
+    results.append(year_movie(q))
+    return render_template("results.html",results=results)
+
+app.debug = True
+app.run()
