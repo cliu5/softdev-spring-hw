@@ -21,6 +21,7 @@ def home():
 
 @app.route("/get_ip")
 def get_ip():
+    ip = "157.230.50.34"
     if request.args.get("ip") != None:
         try:
             ip = request.args.get("ip")
@@ -29,7 +30,7 @@ def get_ip():
             db = connection["BoatBoatInspire"]
             collection = db["movies"]
             file = open('movies.json')
-            data = json.load(F)
+            data = json.load(file)
             collection.insert_many(data)
         except:
             ip = "157.230.50.34"
@@ -38,12 +39,22 @@ def get_ip():
             db = connection["BoatBoatInspire"]
             collection = db["movies"]
             file = open('movies.json')
-            data = json.load(F)
+            data = json.load(file)
             collection.insert_many(data)
     return render_template("search.html",ip=ip)
 
+ip = "157.230.50.34"
+connection = pymongo.MongoClient(ip)
+connection.drop_database("database")
+db = connection["BoatBoatInspire"]
+collection = db["movies"]
+file = open('movies.json')
+data = json.load(file)
+collection.insert_many(data)
+
 def title_movie(title):
-    return collection.find({'title':title})
+    movies = collection.find({'title':title})
+    return movies
 
 def genre_movie(genre):
     return collection.find({'genres':genre})
@@ -53,11 +64,26 @@ def year_movie(year):
 
 @app.route("/query")
 def query():
-    results=[]
+    results = []
     q = request.args.get("search")
-    results.append(title_movie(q))
-    results.append(genre_movie(q))
-    results.append(year_movie(q))
+    try:
+        date = int(q)
+    except:
+        date = ""
+    new = title_movie(q)
+    for movie in new:
+        del movie["_id"]
+        if movie not in results:
+            results.append(movie)
+    new = genre_movie(q)
+    for movie in new:
+        if movie not in results:
+            results.append(movie)
+    new = year_movie(date)
+    for movie in new:
+        if movie not in results:
+            results.append(movie)
+    # print(results)
     return render_template("results.html",results=results)
 
 app.debug = True
