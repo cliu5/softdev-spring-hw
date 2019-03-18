@@ -1,7 +1,7 @@
 var svg = document.getElementById("vimage");
 var clear_button = document.getElementById("but_clear");
 var move_button=document.getElementById("but_move");
-
+var mys_button=document.getElementById("but_mys");
 
 var drawCircle = function(e) {
     
@@ -38,6 +38,37 @@ var id;
 var xVel=1;
 var yVel=1;
 
+var mysCircle=function(){
+    started=true;
+    var animateCircle=function(){
+	window.cancelAnimationFrame(id);
+	for(var i=0;i<circles.length;i++){
+	    var circle=circles[i];
+	    var curX=Number(circle.getAttribute("cx"));
+	    var curY=Number(circle.getAttribute("cy"));
+	    circle.setAttribute("cx", curX+xVel);
+	    circle.setAttribute("cy", curY+yVel);
+	    var curX=Number(circle.getAttribute("cx"));
+	    var curY=Number(circle.getAttribute("cy"));
+    
+
+	    if(curX <= 0 || (curX  >= 200)){
+        xVel *= -1;
+
+      }
+	    if(curY <= 0 || (curY >= 200)){
+        yVel *= -1;
+
+	    }
+
+	
+	}
+    id = window.requestAnimationFrame(animateCircle);
+  }
+	     animateCircle();
+	    }
+
+
 var moveCircle=function(){
     started=true;
     var animate=function(){
@@ -52,11 +83,11 @@ var moveCircle=function(){
 	    var curY=Number(circle.getAttribute("cy"));
     
 
-	    if(curX <= 0 || (curX  >= 500)){
+	    if(curX <= 0 || (curX+ Number(circle.getAttribute("r")))  >= 500){
         xVel *= -1;
 
       }
-	    if(curY <= 0 || (curY >= 500)){
+	    if(curY <= 0 || (curY +  Number(circle.getAttribute("r")))>= 500){
         yVel *= -1;
 
 	    }
@@ -67,13 +98,12 @@ var moveCircle=function(){
   }
 	     animate();
 	    }
-
 var clear = function(e) {
     svg.innerHTML="";
 }
 
 clear_button.addEventListener("click", clear);
 move_button.addEventListener('click',moveCircle);
-
+mys_button.addEventListener('click',mysCircle);
 svg.addEventListener("click", drawCircle);
 svg.addEventListener('click', colorCircle);
