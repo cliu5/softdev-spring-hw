@@ -69,6 +69,13 @@ var mysCircle=function(){
 	    }
 
 
+var circles=[];
+var started = false;
+var clicks=false;
+var radius=1;
+var id;
+var xVel=1;
+var yVel=1;
 var moveCircle=function(){
     started=true;
     var animate=function(){
