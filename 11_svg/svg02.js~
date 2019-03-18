@@ -1,0 +1,69 @@
+var svg = document.getElementById("vimage");
+var clear_button = document.getElementById("but_clear");
+var move_button=document.getElementById("but_move");
+var started = false;
+var clicks=false;
+var radius=1;
+var id;
+
+var drawCircle = function(e) {
+    
+    var c1 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+
+  if (e.target.nodeName == "circle") {
+      pass
+  }
+    
+    c1.setAttribute("cx", e.offsetX);
+    c1.setAttribute("cy", e.offsetY);
+    c1.setAttribute("r", "20");
+    c1.setAttribute("fill", "pink");
+    svg.appendChild(c1);
+}  
+
+var colorCircle=function(e){
+     if(e.target.getAttribute("fill")=="pink"){
+	e.target.setAttribute("fill","green");
+    }
+    else{
+	e.target.setAttribute("cx", Math.floor(Math.random() * 500));
+        e.target.setAttribute("cy", Math.floor(Math.random() * 500));
+        e.target.setAttribute("fill", "pink");
+    }
+}
+
+var dvdAnimation=function(){
+  window.cancelAnimationFrame(id);
+  var rectWidth=100;
+  var rectHeight=50;
+  var xVel=1;
+  var yVel=1;
+  var cur_x=Math.floor(Math.random() * (c.width-rectWidth));
+  var cur_y= Math.floor(Math.random() * (c.height-rectHeight));
+    // make a new animate function so that whenever you click the button it starts at a new random location
+    var animate=function(){
+	window.cancelAnimationFrame(id);
+	
+      if(cur_x <= 0 || cur_x  + rectWidth >= c.width){
+        xVel*=-1;
+	  clear()      }
+      if(cur_y<=0 || cur_y+ rectHeight>= c.height){
+        yVel*=-1;
+      }
+      cur_x+=xVel;
+      cur_y+=yVel;
+      id = window.requestAnimationFrame(animate);
+}
+animate();
+}
+
+
+
+
+var clear = function(e) {
+    svg.innerHTML="";
+}
+
+clear_button.addEventListener("click", clear);
+svg.addEventListener("click", drawCircle);
+svg.addEventListener('click', colorCircle);
