@@ -1,0 +1,49 @@
+<!--
+
+Aim: JS and the Holy Trinity of Data Processing
+
+reduce in JS:
+  x = [1, 2, 3, 4]
+  x.reduce( function(a, b) { return a + b} );
+
+  *will sum elements of x
+
+map:
+  var x = [1, 2, 3, 4]
+  var newX = x.map ( function (n) {
+    return n * 2;
+    }
+  );
+  console.log("The doubled numbers are", newX);
+  [2, 4, 6, 8]
+
+  *will double items of x
+
+filter:
+  var x = [1, 2, 3, 4]
+  var newX = x.filter ( function(n){
+    return (n % 2 == 0)
+  });
+
+  *will create a list with only the even elements of x
+  newX: [2, 4]
+
+-->
+
+<!DOCTYPE html>
+<html>
+  <head><title>Data</title></head>
+  <body>
+    <!-- <p>Select local CSV File:</p>
+    <input id="csv" type="file"><br>
+
+    <output id="out">
+    </output> -->
+    <h2>PS015</h2>
+    Enrolled through the years:<p id="tot"></p>
+    Fifth Grade Enrollment through the years:<p id="fifth"></p>
+    Total Fifth Grade Enrollment:<p id="tot5"></p>
+  </body>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="data.js"></script>
+</html>
